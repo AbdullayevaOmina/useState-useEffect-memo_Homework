@@ -6,19 +6,44 @@ axios.defaults.baseURL = "http://localhost:3000";
 const Users = () => {
   const [users, setUsers] = useState([]);
 
-  const handleEdit = (userId) => {
-    // Edit funksiyasi
-    console.log(`Edit user with ID: ${userId}`);
+  const handleEdit = async (userId) => {
+    try {
+      // Foydalanuvchini ID bo'yicha olish
+      const response = await axios.get(`/users/${userId}`);
+      const userToUpdate = response.data;
+
+      // Ilova holatini "Edit User" modali orqali yangilash
+      // Bu joyda modali ochish va foydalanuvchi ma'lumotlarini shakllantirish mumkin
+
+      console.log("Edit user with ID: ", userId);
+    } catch (error) {
+      console.error("Error editing user:", error);
+    }
   };
 
-  const handleDelete = (userId) => {
-    // Delete funksiyasi
-    console.log(`Delete user with ID: ${userId}`);
+  const handleDelete = async (userId) => {
+    try {
+      // Foydalanuvchini o'chirish
+      await axios.delete(`/users/${userId}`);
+
+      // Foydalanuvchini ma'lumotlarini yangilash uchun getUsers funksiyasini qayta chaqirish
+      getUsers();
+
+      console.log("Delete user with ID: ", userId);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
 
-  const handleEditPassword = (userId) => {
-    // Edit Password funksiyasi
-    console.log(`Edit password for user with ID: ${userId}`);
+  const handleEditPassword = async (userId) => {
+    try {
+      // Ilova holatini "Update Password" modali orqali yangilash
+      // Bu joyda modali ochish va parolni o'zgartirish uchun shakllantirish mumkin
+
+      console.log("Edit password for user with ID: ", userId);
+    } catch (error) {
+      console.error("Error editing password:", error);
+    }
   };
 
   useEffect(() => {
