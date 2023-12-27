@@ -6,6 +6,21 @@ axios.defaults.baseURL = "http://localhost:3000";
 const Users = () => {
   const [users, setUsers] = useState([]);
 
+  const handleEdit = (userId) => {
+    // Edit funksiyasi
+    console.log(`Edit user with ID: ${userId}`);
+  };
+
+  const handleDelete = (userId) => {
+    // Delete funksiyasi
+    console.log(`Delete user with ID: ${userId}`);
+  };
+
+  const handleEditPassword = (userId) => {
+    // Edit Password funksiyasi
+    console.log(`Edit password for user with ID: ${userId}`);
+  };
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -20,12 +35,6 @@ const Users = () => {
   }, []);
 
   console.log(users);
-
-
-  function actions(){
-
-  }  
-
 
   return (
     <main>
@@ -310,6 +319,7 @@ const Users = () => {
           Create User
         </button>
       </div>
+
       <table className="table table-hover table-striped table-dark">
         <thead>
           <tr>
@@ -322,25 +332,43 @@ const Users = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        
-        <tbody >
-          {users.map((user) => {
-            return (
-              <tr>
-                <td className="align-middle">{user.id}</td>
-                <td className="align-middle">
-                  {user.first_name} {user.last_name}
-                </td>
-                <td className="align-middle">
-                  <img className="users-img" src={`${user.image}`} alt="" />
-                </td>
-                <td className="align-middle">{user.age}</td>
-                <td className="align-middle">{user.email}</td>
-                <td className="align-middle">{user.password}</td>
-                <td className="align-middle">{}</td>
-              </tr>
-            );
-          })}
+        {/* // (komponentda render funksiyasining ichida) */}
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              {/* Qolgan jadval o'zgarishlari */}
+              <td className="align-middle">{user.id}</td>
+              <td className="align-middle">
+                {user.first_name} {user.last_name}
+              </td>
+              <td className="align-middle">
+                <img className="users-img" src={`${user.image}`} alt="" />
+              </td>
+              <td className="align-middle">{user.age}</td>
+              <td className="align-middle">{user.email}</td>
+              <td className="align-middle">{user.password}</td>
+              <td className="align-middle">
+                <button
+                  className="btn btn-success"
+                  onClick={() => handleEdit(user.id)}
+                >
+                  <span className="material-icons-outlined fs-5"> edit </span>
+                </button>
+                <button
+                  className="btn btn-warning"
+                  onClick={() => handleEditPassword(user.id)}
+                >
+                  <span className="material-icons-outlined fs-5"> key </span>
+                </button>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleDelete(user.id)}
+                >
+                  <span className="material-icons-outlined fs-5"> delete </span>
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </main>
